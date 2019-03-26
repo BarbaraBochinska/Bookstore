@@ -3,6 +3,7 @@ package com.codecool.bookstore.View;
 import com.codecool.bookstore.Model.ItemCategory;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class BrowseView {
 
@@ -21,5 +22,16 @@ public class BrowseView {
         System.out.println("Choose action:");
         System.out.println("1. Display info about product");
         System.out.println("2. Back to main menu");
+        System.out.println("0. Quit");
+    }
+
+    public void displaySecondOption() {
+        System.out.println("Enter product No.");
+    }
+
+    public int getChosenOption(){
+        Scanner scan = new Scanner(System.in);
+        String chosenOption = scan.nextLine();
+        return Integer.parseInt(chosenOption);
     }
 }
