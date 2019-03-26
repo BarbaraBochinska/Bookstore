@@ -4,6 +4,7 @@ import com.codecool.bookstore.Model.Item;
 import com.codecool.bookstore.Model.ItemCategory;
 import com.codecool.bookstore.Model.Warehouse;
 import com.codecool.bookstore.View.BrowseView;
+import com.codecool.bookstore.View.InfoView;
 import com.codecool.bookstore.View.MainMenuView;
 
 import java.util.ArrayList;
@@ -13,17 +14,17 @@ public class MainController {
 
     private MainMenuView mainMenuView = new MainMenuView();
     private BrowseView browseView = new BrowseView();
+    private InfoView infoView = new InfoView();
     private Warehouse warehouse = new Warehouse();
 
 
     public void showMainView() {
         mainMenuView.showMainMenuText(ItemCategory.values());
         int option = mainMenuView.getChosenOption();
-        chooseOption(option);
+        chooseOptioninMainMenu(option);
     }
 
-    private void chooseOption(int option) {
-        createItems();
+    private void chooseOptioninMainMenu(int option) {
         switch (option) {
             case 0:
                 System.exit(0);
