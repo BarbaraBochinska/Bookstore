@@ -44,18 +44,36 @@ public class MainController {
         browseView.showBrowseText(category);
         browseView.showItems(itemCollection);
         browseView.showOptions();
+        int option = browseView.getChosenOption();
+        chooseOptionInBrowseMenu(option, itemCollection);
     }
 
-    private void createItems() {
-        Item item = new Item("Harry Potter and Philosopher Stone", 35.00f, 55, ItemCategory.BOOK);
-        Item item2 = new Item("Harry Potter and Chamber of Secrets", 35.00f, 45, ItemCategory.BOOK);
-        Item item3 = new Item("Harry Potter and Prisoner of Azkaban", 39.99f, 95, ItemCategory.BOOK);
-        Item item4 = new Item("Diablo II", 129.90f, 195, ItemCategory.GAME);
-        Item item5 = new Item("Monkey Island", 24.99f, 65, ItemCategory.GAME);
-        Item item6 = new Item("The Lost Vikings", 3.99f, 15, ItemCategory.GAME);
-        Item item7 = new Item("Shrek", 29.00f, 70, ItemCategory.MOVIE);
-        Item item8 = new Item("Shawshank Redemption", 39.99f, 16, ItemCategory.MOVIE);
-        Item item9 = new Item("Wreck it Ralph", 65.00f, 35, ItemCategory.MOVIE);
+    private void chooseOptionInBrowseMenu(int option, ArrayList<Item> itemCollection) {
+        switch (option) {
+            case 0:
+                System.exit(0);
+            case 1:
+                browseView.displaySecondOption();
+                int itemNo = browseView.getChosenOption();
+                Item item = itemCollection.get(itemNo);
+                infoView.showInfo(item);
+                break;
+            case 2:
+                showMainView();
+                break;
+        }
+    }
+
+    public void createItems() {
+        Item item = new Item("Harry Potter and Philosopher Stone", "Fantasy novel written by British author J. K. Rowling.", 35.00f, 55, ItemCategory.BOOK);
+        Item item2 = new Item("Harry Potter and Chamber of Secrets", "Fantasy novel written by British author J. K. Rowling.", 35.00f, 45, ItemCategory.BOOK);
+        Item item3 = new Item("Harry Potter and Prisoner of Azkaban", "Fantasy novel written by British author J. K. Rowling.", 39.99f, 95, ItemCategory.BOOK);
+        Item item4 = new Item("Diablo II", "Action role-playing hack-and-slash computer video game developed by Blizzard North and published by Blizzard Entertainment in 2000 ", 129.90f, 195, ItemCategory.GAME);
+        Item item5 = new Item("Monkey Island", "1990 point-and-click graphic adventure game developed and published by Lucasfilm Games. It takes place in a fantastic version of the Caribbean during the age of piracy.",24.99f, 65, ItemCategory.GAME);
+        Item item6 = new Item("The Lost Vikings", "Puzzle-platform video game", 3.99f, 15, ItemCategory.GAME);
+        Item item7 = new Item("Shrek", "2001 American computer-animated, comedy film loosely based on the 1990 fairytale picture book", 29.00f, 70, ItemCategory.MOVIE);
+        Item item8 = new Item("Shawshank Redemption", "1994 American drama film written and directed by Frank Darabont, based on the 1982 Stephen King novella Rita Hayworth and Shawshank Redemption.", 39.99f, 16, ItemCategory.MOVIE);
+        Item item9 = new Item("Wreck it Ralph", "2012 American 3D computer-animated comedy film[4] produced by Walt Disney Animation Studios",65.00f, 35, ItemCategory.MOVIE);
         warehouse.saveItem(item);
         warehouse.saveItem(item2);
         warehouse.saveItem(item3);
