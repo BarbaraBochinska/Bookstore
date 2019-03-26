@@ -21,4 +21,16 @@ public class Warehouse {
                 break;
         }
     }
+
+    public ArrayList<Item> getBooks() {
+        return books;
+    }
+
+    public ArrayList<Item> getGames() {
+        return games;
+    }
+
+    public ArrayList<Item> getMovies() {
+        return movies;
+    }
 }
