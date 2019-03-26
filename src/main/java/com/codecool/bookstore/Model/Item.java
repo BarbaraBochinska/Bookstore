@@ -18,7 +18,11 @@ public class Item {
         this.category = category;
     }
 
-    public ItemCategory getCategory() {
+    ItemCategory getCategory() {
         return category;
+    }
+
+    public String toString() {
+        return " | " + title + " | " + price + "$ | " + stock;
     }
 }
