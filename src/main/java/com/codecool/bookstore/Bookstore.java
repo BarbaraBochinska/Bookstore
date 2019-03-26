@@ -7,6 +7,7 @@ public class Bookstore {
 
     public static void main(String[] args) {
         MainController controller = new MainController();
+        controller.createItems();
         controller.showMainView();
     }
 }
