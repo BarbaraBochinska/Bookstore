@@ -1,6 +1,7 @@
 package com.codecool.bookstore.Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Warehouse {
 
@@ -21,16 +22,27 @@ public class Warehouse {
                 break;
         }
     }
-
-    public ArrayList<Item> getBooks() {
-        return books;
+    public List<Item> getItemsByCategory(ItemCategory category) {
+        switch (category) {
+            case BOOK:
+                return books;
+            case GAME:
+                return games;
+            case MOVIE:
+                return movies;
+            default:
+                throw new IllegalArgumentException("No such category.");
+        }
     }
 
-    public ArrayList<Item> getGames() {
-        return games;
-    }
-
-    public ArrayList<Item> getMovies() {
-        return movies;
+    public Item getItem(ItemCategory category, int itemId) {
+        List<Item> searchedItems = getItemsByCategory(category);
+        Item result = null;
+        for (Item i : searchedItems) {
+            if (i.getId() == itemId) {
+                result = i;
+            }
+        }
+        return result;
     }
 }

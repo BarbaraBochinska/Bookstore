@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class Item {
 
+    private static int idCounter = 0;
+    private int id;
     private String title;
     private String description;
     private float price;
@@ -13,6 +15,7 @@ public class Item {
     private Map<ItemCategory, Integer> infoByCategory = new HashMap<>();
 
     public Item(String title, String description, float price, int stock, ItemCategory category) {
+        id = idCounter++;
         this.title = title;
         this.description = description;
         this.price = price;
@@ -36,7 +39,7 @@ public class Item {
         return description;
     }
 
-    ItemCategory getCategory() {
+    public ItemCategory getCategory() {
         return category;
     }
 
@@ -44,4 +47,7 @@ public class Item {
         return " | " + title + " | " + price + "$ | " + stock;
     }
 
+    public int getId() {
+        return id;
+    }
 }

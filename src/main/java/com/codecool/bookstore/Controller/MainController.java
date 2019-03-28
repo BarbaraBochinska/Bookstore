@@ -1,13 +1,16 @@
 package com.codecool.bookstore.Controller;
 
+import com.codecool.bookstore.Model.Cart;
 import com.codecool.bookstore.Model.Item;
 import com.codecool.bookstore.Model.ItemCategory;
 import com.codecool.bookstore.Model.Warehouse;
 import com.codecool.bookstore.View.BrowseView;
+import com.codecool.bookstore.View.CartView;
 import com.codecool.bookstore.View.InfoView;
 import com.codecool.bookstore.View.MainMenuView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainController {
@@ -16,39 +19,42 @@ public class MainController {
     private BrowseView browseView = new BrowseView();
     private InfoView infoView = new InfoView();
     private Warehouse warehouse = new Warehouse();
+    private Cart cart = new Cart();
+    private CartView cartView = new CartView();
 
 
     public void showMainView() {
         mainMenuView.showMainMenuText(ItemCategory.values());
         int option = mainMenuView.getChosenOption();
-        chooseOptioninMainMenu(option);
+        chooseOptionInMainMenu(option);
     }
 
-    private void chooseOptioninMainMenu(int option) {
+    private void chooseOptionInMainMenu(int option) {
         switch (option) {
             case 0:
                 System.exit(0);
             case 1:
-                createBrowseViewByCategory(ItemCategory.BOOK, warehouse.getBooks());
+                createBrowseViewByCategory(ItemCategory.BOOK);
                 break;
             case 2:
-                createBrowseViewByCategory(ItemCategory.GAME, warehouse.getGames());
+                createBrowseViewByCategory(ItemCategory.GAME);
                 break;
             case 3:
-                createBrowseViewByCategory(ItemCategory.MOVIE, warehouse.getMovies());
+                createBrowseViewByCategory(ItemCategory.MOVIE);
                 break;
         }
     }
 
-    private void createBrowseViewByCategory(ItemCategory category, ArrayList<Item> itemCollection ) {
+    private void createBrowseViewByCategory(ItemCategory category) {
+        List<Item> items = warehouse.getItemsByCategory(category);
         browseView.showBrowseText(category);
-        browseView.showItems(itemCollection);
+        browseView.showItems(items);
         browseView.showOptions();
         int option = browseView.getChosenOption();
-        chooseOptionInBrowseMenu(option, itemCollection);
+        chooseOptionInBrowseMenu(option, items);
     }
 
-    private void chooseOptionInBrowseMenu(int option, ArrayList<Item> itemCollection) {
+    private void chooseOptionInBrowseMenu(int option, List<Item> itemCollection) {
         switch (option) {
             case 0:
                 System.exit(0);
@@ -57,9 +63,29 @@ public class MainController {
                 int itemNo = browseView.getChosenOption();
                 Item item = itemCollection.get(itemNo);
                 infoView.showInfo(item);
+                infoView.printOptions();
+                int choice = infoView.askForInput();
+                chooseOptionInInfoMenu(choice, item.getCategory());
                 break;
             case 2:
                 showMainView();
+                break;
+        }
+    }
+
+    private void chooseOptionInInfoMenu(int option, ItemCategory category) {
+        switch (option) {
+            case 0:
+                createBrowseViewByCategory(category);
+                break;
+            case 1:
+                cart.addItem(warehouse.getItem(category, infoView.getItemId()));
+                System.out.println("Item added to cart.");
+                createBrowseViewByCategory(category);
+                break;
+            case 2:
+                cartView.printMenu(cart);
+                cartView.askForInput();
                 break;
         }
     }
